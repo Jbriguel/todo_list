@@ -23,8 +23,7 @@ class _addTaskContentState extends State<addTaskContent> {
       lastDate: DateTime(2101),
       cancelText: "Fermer",
       confirmText: "Confirmer",
-      helpText: "Sélectionner une date",
-      
+      helpText: "Sélectionner une date", 
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
