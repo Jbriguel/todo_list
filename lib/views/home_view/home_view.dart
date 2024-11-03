@@ -191,16 +191,17 @@ class _HomeViewState extends State<HomeView> {
   Column _titleContent(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        'User Name',
+        'Abdouljr',
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
       ),
       Text(
-        'user@gmail.com',
+        'maigaabdoulaziz795@gmail.com',
         style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Colors.grey.shade700,
+              fontWeight: FontWeight.w400,
             ),
       ),
     ]);

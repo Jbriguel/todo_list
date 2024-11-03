@@ -15,7 +15,7 @@ class AddUserAvatar extends StatelessWidget {
           color: Colors.white,
           shape: BoxShape.circle,
           border:
-              Border.all(color: Colors.deepPurple.withOpacity(0.8), width: 1.2),
+              Border.all(color: Colors.deepPurple.withOpacity(0.6), width: 1.2),
         ),
         child: Image.asset(
           "ressources/images/user.png",
@@ -29,7 +29,7 @@ class AddUserAvatar extends StatelessWidget {
           width: 20,
           height: 20,
           decoration: BoxDecoration(
-            color: Colors.deepPurple,
+            color: Colors.deepPurple.withOpacity(0.6),
             shape: BoxShape.circle,
           ),
           child: const Icon(

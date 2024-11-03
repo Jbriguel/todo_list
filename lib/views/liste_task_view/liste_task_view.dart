@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/views/liste_task_view/components/add_user_avatar.dart';
+import 'package:todo_list/views/liste_task_view/components/contents/add_collaborateur_content.dart';
+import 'package:todo_list/views/liste_task_view/components/contents/add_new_list_content.dart';
+import 'package:todo_list/views/liste_task_view/components/contents/add_task_content.dart';
+import 'package:todo_list/views/liste_task_view/components/contents/rename_list_content.dart';
 import 'package:todo_list/views/liste_task_view/components/task_item.dart';
 
 import 'components/user_avatar.dart';
@@ -25,90 +29,116 @@ class _ListeTaskViewState extends State<ListeTaskView> {
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
-          return Center(
-            child: Material(
-              color: Colors.transparent,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                margin: const EdgeInsets.all(5.0),
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  shadows: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(12),
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Nouvelle liste de tâches',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _titreController,
-                      decoration: InputDecoration(
-                        hintText: "Saisissez titre ...",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(18),
-                            borderSide: BorderSide.none),
-                        fillColor: Colors.grey.withOpacity(0.1),
-                        filled: true,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      controller: _descirptionController,
-                      maxLines: 3,
-                      maxLength: 150,
-                      decoration: InputDecoration(
-                        hintText: "Saisissez description ...",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(18),
-                            borderSide: BorderSide.none),
-                        fillColor: Colors.grey.withOpacity(0.1),
-                        filled: true,
-                      ),
-                    ),
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    TextButton(
-                      child: const Text('Annuler'),
-                      onPressed: () {
-                        Navigator.of(context).pop(false);
-                      },
-                    ),
-                    TextButton(
-                      child: const Text('Ajouter liste'),
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                    ),
-                  ])
-                ]),
-              ),
-            ),
-          );
+          return addNewListContent(
+              titreController: _titreController,
+              descirptionController: _descirptionController);
         },
       );
     }
+  }
+
+  Future<dynamic> showAddNewCollaborator_PopUp() async {
+    TextEditingController _collaboratorEmailController =
+        TextEditingController();
+    return showDialog<dynamic>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return addCollaborateurContent(
+            collaboratorEmailController: _collaboratorEmailController);
+      },
+    );
+  }
+
+  ///Add Task
+  Future<dynamic> showAddTask_PopUp() async {
+    return showDialog<dynamic>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return addTaskContent();
+      },
+    );
+  }
+
+  Future<dynamic> showRenameList_PopUp() async {
+    TextEditingController _listNameController = TextEditingController();
+    return showDialog<dynamic>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return renameListContent(listNameController: _listNameController);
+      },
+    );
+  }
+
+  Future<dynamic> showDeleteList_PopUp() async {
+    return showDialog<dynamic>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return Center(
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              margin: const EdgeInsets.all(5.0),
+              decoration: ShapeDecoration(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                shadows: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Suppression de la liste',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Voulez-vous vraiment supprimer cette liste ?',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.black,
+                        ),
+                  ),
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  TextButton(
+                    child: const Text('Annuler'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: const Text('Mettre à jour'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ])
+              ]),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -134,7 +164,8 @@ class _ListeTaskViewState extends State<ListeTaskView> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {}, icon: const Icon(CupertinoIcons.person_add)),
+              onPressed: () => showAddNewCollaborator_PopUp(),
+              icon: const Icon(CupertinoIcons.person_add)),
           _selectedOptions(),
         ],
       ),
@@ -153,9 +184,11 @@ class _ListeTaskViewState extends State<ListeTaskView> {
         ),
         Container(
           height: 75,
-          margin: EdgeInsets.all(5.0),
+          margin: const EdgeInsets.all(5.0),
           child: Row(children: [
-            const AddUserAvatar(),
+            GestureDetector(
+                onTap: () => showAddNewCollaborator_PopUp(),
+                child: const AddUserAvatar()),
             ...["Joe Dy", "Karim DI", "Aziz AB"].map((name) => UserAvatar(
                   userName: name,
                 ))
@@ -177,7 +210,7 @@ class _ListeTaskViewState extends State<ListeTaskView> {
         taskItem(isCompleted: true),
       ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => showAddTask_PopUp(),
         tooltip: 'Ajouter tâche',
         child: const Icon(Icons.add),
       ),
@@ -208,6 +241,15 @@ class _ListeTaskViewState extends State<ListeTaskView> {
           elevation: 2,
           onSelected: (value) {
             // Vous pouvez ajouter une action ici pour le `onSelected` si nécessaire.
+            if (value == 1) {
+              showRenameList_PopUp();
+            }
+            if (value == 2) {
+              showAddTask_PopUp();
+            }
+            if (value == 3) {
+              showDeleteList_PopUp();
+            }
           },
         ),
       );
