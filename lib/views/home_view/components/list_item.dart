@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/views/liste_task_view/liste_task_view.dart';
 
 class ListItem extends StatelessWidget {
   const ListItem({super.key});
@@ -6,7 +7,16 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push<void>(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => ListeTaskView(
+                addMode: false,
+              ),
+            ),
+          );
+        },
         child: ListTile(
           leading: Container(
             decoration: BoxDecoration(

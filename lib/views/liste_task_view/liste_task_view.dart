@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/views/liste_task_view/components/add_user_avatar.dart';
 import 'package:todo_list/views/liste_task_view/components/task_item.dart';
+
+import 'components/user_avatar.dart';
 
 class ListeTaskView extends StatefulWidget {
   ListeTaskView({super.key, required this.addMode});
@@ -126,22 +129,47 @@ class _ListeTaskViewState extends State<ListeTaskView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+          IconButton(
+              onPressed: () {}, icon: const Icon(CupertinoIcons.person_add)),
           _selectedOptions(),
         ],
       ),
-      body: Column(children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Collaborateurs',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade800,
+            ),
+          ),
+        ),
+        Container(
+          height: 75,
+          margin: EdgeInsets.all(5.0),
+          child: Row(children: [
+            const AddUserAvatar(),
+            ...["Joe Dy", "Karim DI", "Aziz AB"].map((name) => UserAvatar(
+                  userName: name,
+                ))
+          ]),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
             'Nom de la liste de tâches',
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.grey.shade800,
             ),
           ),
         ),
